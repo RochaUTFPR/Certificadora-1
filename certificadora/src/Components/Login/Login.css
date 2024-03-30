@@ -1,65 +1,64 @@
-.Container-Login {
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-
-}
-
-.Login{
-    width: 100%;
-    height: 100%;
-    background-color: #D5E8F3;
-    border-radius: 30px;
-}
-
-.Description-Login{
+.Container-Form-login{
     display: flex;
     align-items: center;
-    justify-content: center; 
-    flex-direction: column;
-    height: 100%;
     width: 50%;
-    background-color: #4D9ECD;
-    border-radius: 30px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
+    height: 100%;
     padding: 3% 5%;
-    gap: 41px;
+    gap: 90px;
+    flex-direction: column;
 }
 
-.Description-Login h1 {
+h2 {
     font-family: "Original Surfer", sans-serif;
     font-weight: 400;
-    font-size: 2vw; 
-    max-width: 100%;
-    font-style: normal;
-    text-align: center;
-    color: #fff;
-    line-height: 4.5vw;
-}
-
-.Description-Login span {
-    color: #002241;
-}
-
-.LoginImg {
-    height: 100%;
-    object-fit: cover;
-}
-
-.Container-img {
     display: flex;
-    align-items: center;
-    justify-content: center; 
+    flex-direction: column;
+    position: relative;
+}
+
+.barh2{
+    margin-top: 5px;
     width: 100%;
-    height: 100%;
+    height: 1.5px;
+    background-color: black;
 }
 
-.Container-title {
-    display: flex;
-    align-items: center;
-    justify-content: center; 
-    width: 85%;
-    height: 60%;
+
+label {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    width: 100%;
 }
+
+input[type="text"],
+input[type="password"] {
+    height: 25px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #4D9ECD; 
+    outline: none;
+    width: 100%;
+    color: #4d4d4d;
+    font-size: 14px;
+}
+
+
+.Container-Form {
+    width: 100%;
+    gap: 100px;
+}
+
+.Container-Input {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+

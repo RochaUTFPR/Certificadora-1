@@ -1,21 +1,53 @@
-import '../Login/Login.css'
-import LoginImg from '../Login/img/LoginImg.png'
+import './Login.css'
+import { useState } from 'react';
 
-export function Login(){
+export function Login({setLogin}){
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setLogin(true);
+    };
+
     return (
         <>
-        <div className='Container-Login'>
-            <div className="Login">
-                <div className='Description-Login'>
-                    <div className='Container-title'>
-                        <h1>Prepare-se para um teste de física emocionante e <span>mergulhe no universo das leis da natureza!</span></h1>
-                    </div>
-                    <div className='Container-img'>
-                        <img className='LoginImg' src={LoginImg} alt="Imagem de 3 alunos" />  
-                    </div>
-                        
+        <div className='Container-Form-login'>
+        <h2>Login
+        <span className='barh2'/>
+        </h2>
+        
+        <div className='Container-Form'>
+            <form onSubmit={handleSubmit}>
+                <div className='Container-Input'>
+                <label >
+                    Usuário:
+                </label>
+                <input 
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                    />
                 </div>
-            </div>
+                <div className='Container-Input'>
+                    <label>
+                        Senha:             
+                    </label>
+                    <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                </div>
+                <div>
+                    <button type="submit">Entrar</button>
+                    <button type="button">Cadastrar</button>
+                </div>
+
+            </form>
+        </div>
         </div>
         </>
     )
