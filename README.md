@@ -3,9 +3,13 @@ Certificadora 1
 
 ## Equipe
 Guilherme Grilo Luche
+
 Luca Conti Comine
+
 Leonardo Rodrigues De Oliveira
+
 Pedro Augusto
+
 Pedro Henrique Da Rocha
 
 ## Descrição Do Projeto
