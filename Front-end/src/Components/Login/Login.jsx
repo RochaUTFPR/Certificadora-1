@@ -41,7 +41,7 @@ export function Login({setLogin}){
                             required
                         />
                 </div>
-                <div>
+                <div className='Container-Button'>
                     <button type="submit">Entrar</button>
                     <button type="button">Cadastrar</button>
                 </div>

@@ -1,6 +1,7 @@
 .Container-Form-login{
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 50%;
     height: 100%;
     padding: 3% 5%;
@@ -60,5 +61,35 @@ form {
     align-items: center;
     gap: 20px;
 }
+
+.Container-Button{
+    display: flex;
+    gap: 20px;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    width: 80px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: #4D9ECD;
+    color: white;
+    font-weight: bold;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    width: 80px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: #4D9ECD;
+    color: white;
+    font-weight: bold;
+
+    
+}
+
 
 
