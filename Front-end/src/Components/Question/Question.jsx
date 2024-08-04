@@ -1,12 +1,14 @@
 import './Question.css';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import Direction from './img/Direction.png'
 import User from './img/User.png'
+import { useNavigate } from 'react-router-dom';
 
 export function Question() {
     const [Question, setQuestion] = useState([]);
     const [selectedLevel, setSelectedLevel] = useState('all');
+    const navigate = useNavigate();
 
     const Questions = [
         {
@@ -60,6 +62,10 @@ export function Question() {
             nivel: 3,
         }
     ];
+
+    const handleClick = (questionsId) => {
+        navigate(`/Question/${questionsId}`);
+    }
 
     useEffect(() => {
         setQuestion(Questions)
