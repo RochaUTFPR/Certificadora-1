@@ -2,7 +2,7 @@ import './Question.css';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import Direction from './img/Direction.png'
-import User from './img/User.png'
+import User from '../../assets/img/User.png'
 import { useNavigate } from 'react-router-dom';
 
 export function Question() {
