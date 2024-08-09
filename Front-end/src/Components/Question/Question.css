@@ -158,3 +158,19 @@ select {
     margin: 5px;
     font-size: 14px;
   }
+
+  .question-item {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .error-background {
+    background-color: #ffc3c8; 
+  }
+  
+  .correct-background {
+    background-color: #70ff91; 
+  }
+  

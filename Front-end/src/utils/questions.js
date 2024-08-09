@@ -37,7 +37,7 @@ const questions = [
             "30 N",
             "50 N"
         ],
-        "resposta_correta": "50N"
+        "resposta_correta": "50 N"
     },
     {
         "id": 4,

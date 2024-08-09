@@ -75,7 +75,6 @@ label {
 
 .Button:hover {
     background-color: #184b06;
-    
 }
 
 .BannerWarning {
@@ -103,3 +102,11 @@ label {
     margin-top: 30px;
     margin-bottom: 30px;
 }
+
+.ButtonDisabled {
+    background-color: #43C715;
+    width: 200px;
+    height: 30px;
+    opacity: 0.5;
+    cursor: not-allowed;
+  }

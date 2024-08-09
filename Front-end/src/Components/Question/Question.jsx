@@ -2,13 +2,15 @@ import './Question.css';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import Direction from './img/Direction.png'
-import User from '../../assets/img/User.png'
+import User_Img from '../../assets/img/User.png'
 import { useNavigate } from 'react-router-dom';
+import { useAppContext } from '../../utils/AppContext';
 
 export function Question() {
     const [Question, setQuestion] = useState([]);
     const [selectedLevel, setSelectedLevel] = useState('all');
     const navigate = useNavigate();
+    const { User, updateUserAttribute, updateQuestionAttribute} = useAppContext();
 
     const Questions = [
         {
@@ -112,7 +114,7 @@ export function Question() {
                             <div
                                 key={question.id}
                                 onClick={() => handleClick(question.id)}
-                                className="question-item"
+                                className={`question-item ${User.Questions[question.id]?.success === 'Error' ? 'error-background' : User.Questions[question.id]?.success === 'Correct' ? 'correct-background' : ''}`}
                             >
                                 <p className='title'>{question.title}</p>
                                 <p>Nivel: {question.nivel}</p>
@@ -128,7 +130,7 @@ export function Question() {
                         <p>João da silva</p>
                         <p>Uma máquina</p>
                     </div>
-                    <img src={User} alt="imagem do usuario"/>
+                    <img src={User_Img} alt="imagem do usuario"/>
                 </div>
                 <div className='container-info'>
                     <p>Nivel desbloqueado: 2</p>

@@ -4,29 +4,50 @@ import questions from '../utils/questions';
 import './question.css';
 import User_Profile from '../assets/img/User.png';
 import { useAppContext } from '../utils/AppContext';
+import { useNavigate } from 'react-router-dom';
 
 export function Question() {
     const { id } = useParams();
     const question = questions.find(q => q.id === parseInt(id));
 
     const [selectedAnswer, setSelectedAnswer] = useState('');
-
+    const navigate = useNavigate();
+    const [responderNovamente, setResponderNovamente] = useState()
     const { User, updateUserAttribute, updateQuestionAttribute} = useAppContext();
     
     const checkResponse = () => {
-        console.log("cliquei")
+        setResponderNovamente(false)
         if(question.resposta_correta === selectedAnswer ) {
+            handleBack()
            return updateQuestionAttribute(question.id,"success","Correct")
         }
         const attempt = User.Questions[question.id].attempt;
         updateQuestionAttribute(question.id,"attempt", attempt + 1)
         updateQuestionAttribute(question.id,"success","Error")
+        handleBack()
         return 
     }
+
+    useEffect(() => {
+        if((User.Questions[question.id].attempt > 0)){
+            setResponderNovamente(false)
+        }else (
+            setResponderNovamente(true)
+        )
+      }, []);
 
     const handleChange = (value) => {
         setSelectedAnswer(value);
     };
+
+    const handleBack = () => {
+        navigate('/'); 
+      
+    };
+
+    const TentarNovamente = () => {
+        setResponderNovamente(true)
+    }
 
     //parei aqui
     const checkSucess = (attempt = false) => {
@@ -79,15 +100,15 @@ export function Question() {
                 </div>
                 
                 <div className='ContainerButton'>
-                    <button className='Button' onClick={checkResponse} disabled={false} >Responder</button>
+                    <button className={!responderNovamente ? 'ButtonDisabled': 'Button'} onClick={checkResponse} disabled={!responderNovamente} >Responder</button>
                 </div>
             </div>
-            {(User.Questions[question.id].attempt > 0) ? (
+            {(User.Questions[question.id].attempt > 0)  ? (
                 <div className='BannerWarning'>
                     <h4>você já resolveu esse problema, deseja resolver novamente?</h4>
                     <div className='container_Button'>
-                        <button className='Button' >Tentar novamente</button>
-                        <button className='Button_cancelar' >Cancelar</button>
+                        <button className='Button' onClick={TentarNovamente}>Tentar novamente</button>
+                        <button className='Button_cancelar' onClick={handleBack}>Cancelar</button>
                     </div>
                 </div>
             ) : (
