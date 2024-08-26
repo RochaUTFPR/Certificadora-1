@@ -5,6 +5,8 @@ import './question.css';
 import User_Profile from '../assets/img/User.png';
 import { useAppContext } from '../utils/AppContext';
 import { useNavigate } from 'react-router-dom';
+import up from './img/up.png';
+import down from './img/down.png';
 
 export function Question() {
     const { id } = useParams();
@@ -14,17 +16,44 @@ export function Question() {
     const navigate = useNavigate();
     const [responderNovamente, setResponderNovamente] = useState()
     const { User, updateUserAttribute, updateQuestionAttribute} = useAppContext();
-    
+    const [limiteTentativas, setLimiteTentativas] = useState()
+
     const checkResponse = () => {
         setResponderNovamente(false)
         if(question.resposta_correta === selectedAnswer ) {
             handleBack()
-           return updateQuestionAttribute(question.id,"success","Correct")
+           updateQuestionAttribute(question.id,"success","Correct")
+           const questionNivel = question.nivel;
+           //const userNivel = User.nivel;
+           const pontos = User.pontos;
+           
+           if(questionNivel == 1){
+            updateUserAttribute("pontos",pontos + (100 / (2 ** User.Questions[question.id].attempt)));
+           
+            if(User.nivel == 1){
+                updateUserAttribute("nivel", 2);
+            }          
+           }else if(questionNivel == 2){
+            updateUserAttribute("pontos",pontos + 250);
+           
+            if(User.nivel == 2){
+                updateUserAttribute("nivel", 3);
+            }
+           }else{
+            updateUserAttribute("pontos",pontos + 500);
+           
+           }
+
+           
+           //console.log(question.nivel);
+           //return 
+        }else{
+        
+        updateQuestionAttribute(question.id,"success","Error")
+        handleBack()
         }
         const attempt = User.Questions[question.id].attempt;
         updateQuestionAttribute(question.id,"attempt", attempt + 1)
-        updateQuestionAttribute(question.id,"success","Error")
-        handleBack()
         return 
     }
 
@@ -33,6 +62,14 @@ export function Question() {
             setResponderNovamente(false)
         }else (
             setResponderNovamente(true)
+        )
+      }, []);
+
+      useEffect(() => {
+        if((User.Questions[question.id].attempt >= 5)){
+            setLimiteTentativas(true)
+        }else (
+            setLimiteTentativas(false)
         )
       }, []);
 
@@ -49,6 +86,20 @@ export function Question() {
         setResponderNovamente(true)
     }
 
+    const alterarDificuldade = (p) => {
+        console.log('estou na funcao')
+        const nivel = question.nivel;
+        if(p == "aumentar"){
+            if(nivel < 3){
+                question.nivel = nivel + 1;
+            }
+        }else{
+            if(nivel > 1){
+                question.nivel = nivel - 1;
+            }
+        }
+        navigate('/'); 
+    }
     //parei aqui
     const checkSucess = (attempt = false) => {
         let success = false
@@ -70,9 +121,9 @@ export function Question() {
             <div className="PerfilContainer">
                 <img className="imgUser" src={User_Profile} alt="imagem do usuário" />
                 <div className="ContainerUserDescription">
-                    <p>João da Silva</p>
-                    <p>Nível desbloqueado: 2</p>
-                    <p>999 Pontos</p>
+                    <p>{User.nome}</p>
+                    <p>Nível desbloqueado: {User.nivel}</p>
+                    <p>{User.pontos} Pontos</p>
                 </div>
             </div>
             <div className="ContainerQuestion">
@@ -101,15 +152,26 @@ export function Question() {
                 
                 <div className='ContainerButton'>
                     <button className={!responderNovamente ? 'ButtonDisabled': 'Button'} onClick={checkResponse} disabled={!responderNovamente} >Responder</button>
+                    {(User.Questions[question.id].attempt > 0)  ? (
+                        <div className='containerDificuldade'>
+                            <p>Alterar Dificuldade: </p>
+                            <button className='buttonDificuldade' onClick={() => alterarDificuldade('aumentar')}> <img className='buttonImg' src={up} alt="Flecha para baixo" /></button>
+                            <button className='buttonDificuldade' onClick={() => alterarDificuldade('diminuir')}> <img className='buttonImg' src={down} alt="Flecha para baixo" /></button>
+                        </div>
+                    ) : (
+                        <></>
+                    )}
                 </div>
+
             </div>
-            {(User.Questions[question.id].attempt > 0)  ? (
+            {(User.Questions[question.id].attempt > 0)&&(responderNovamente == false)  ? (
                 <div className='BannerWarning'>
                     <h4>você já resolveu esse problema, deseja resolver novamente?</h4>
                     <div className='container_Button'>
-                        <button className='Button' onClick={TentarNovamente}>Tentar novamente</button>
+                        <button className='Button' onClick={TentarNovamente} disabled={limiteTentativas}>Tentar novamente</button>
                         <button className='Button_cancelar' onClick={handleBack}>Cancelar</button>
                     </div>
+                    
                 </div>
             ) : (
                 <></>

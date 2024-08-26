@@ -5,6 +5,7 @@ import Direction from './img/Direction.png'
 import User_Img from '../../assets/img/User.png'
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../utils/AppContext';
+import questions from '../../utils/questions';
 
 export function Question() {
     const [Question, setQuestion] = useState([]);
@@ -12,7 +13,9 @@ export function Question() {
     const navigate = useNavigate();
     const { User, updateUserAttribute, updateQuestionAttribute} = useAppContext();
 
-    const Questions = [
+
+    //Depois tirar essa porra
+    const tQuestions = [
         {
             id: 1,
             title: "Um carro viaja a uma velocidade constante de 50 m/s por 3 minutos. Qual a distância percorrida pelo carro durante esse tempo?",
@@ -65,8 +68,19 @@ export function Question() {
         }
     ];
 
+    const Questions = questions;
     const handleClick = (questionsId) => {
-        navigate(`/Question/${questionsId}`);
+       
+        const userNivel = User.nivel;
+        const questionNivel = Questions[questionsId - 1]?.nivel;
+        console.log(userNivel);
+        console.log(questionNivel);
+        if(!(questionNivel > userNivel)){
+            navigate(`/Question/${questionsId}`);
+        }else{
+            
+        }
+        
     }
 
     useEffect(() => {
@@ -114,7 +128,7 @@ export function Question() {
                             <div
                                 key={question.id}
                                 onClick={() => handleClick(question.id)}
-                                className={`question-item ${User.Questions[question.id]?.success === 'Error' ? 'error-background' : User.Questions[question.id]?.success === 'Correct' ? 'correct-background' : ''}`}
+                                className={`question-item ${User.Questions[question.id]?.success === 'Error' ? 'error-background' : User.Questions[question.id]?.success === 'Correct' ? 'correct-background' : ''} ${question.nivel > User.nivel ? 'blocked-blackground' :''}`}
                             >
                                 <p className='title'>{question.title}</p>
                                 <p>Nivel: {question.nivel}</p>
@@ -127,14 +141,14 @@ export function Question() {
             <div className="info-user">
                 <div className='container-user'>
                     <div className='container-p'>
-                        <p>João da silva</p>
+                        <p>{User.nome}</p>
                         <p>Uma máquina</p>
                     </div>
                     <img src={User_Img} alt="imagem do usuario"/>
                 </div>
                 <div className='container-info'>
-                    <p>Nivel desbloqueado: 2</p>
-                    <p>999 Pontos</p>
+                    <p>Nivel desbloqueado: {User.nivel}</p>
+                    <p>{User.pontos} Pontos</p>
                 </div>
             </div>
         </div>

@@ -173,4 +173,6 @@ select {
   .correct-background {
     background-color: #70ff91; 
   }
-  
+  .blocked-blackground {
+    background-color: #d6d6d6;
+  }

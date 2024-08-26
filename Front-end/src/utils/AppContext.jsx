@@ -5,8 +5,8 @@ const AppContext = createContext();
 export function AppProvider({ children }) {
     const [User, setUser] = useState({
         "nome": "Joaquim",
-        "nivel": "",
-        "pontos": "",
+        "nivel": 1,
+        "pontos": 0,
         "Questions": {
             "1": {
                 "attempt": 0,
