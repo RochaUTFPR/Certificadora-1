@@ -34,13 +34,13 @@ export function Question() {
                 updateUserAttribute("nivel", 2);
             }          
            }else if(questionNivel == 2){
-            updateUserAttribute("pontos",pontos + 250);
+            updateUserAttribute("pontos",pontos + (250 / (2 ** User.Questions[question.id].attempt)));
            
             if(User.nivel == 2){
                 updateUserAttribute("nivel", 3);
             }
            }else{
-            updateUserAttribute("pontos",pontos + 500);
+            updateUserAttribute("pontos",pontos + (500 / (2 ** User.Questions[question.id].attempt)));
            
            }
 
